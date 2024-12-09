@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: deal
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dealDB
+    username: student
+    password: chocolatefrog
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8082
