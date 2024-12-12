@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - include:
+      file: db/liquibase/scripts/create_table_passport.xml
+  - include:
+      file: db/liquibase/scripts/create_table_employment.xml
+  - include:
+      file: db/liquibase/scripts/create_table_credit.xml
+  - include:
+      file: db/liquibase/scripts/create_table_client.xml
+  - include:
+     file: db/liquibase/scripts/create_table_statement.xml
+  - include:
+        file: db/liquibase/scripts/add_constraints.xml
+

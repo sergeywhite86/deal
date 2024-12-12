@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd">
+
+
+<changeSet id="5" author="sergey_white">
+    <addUniqueConstraint tableName="passport" columnNames="id" constraintName="unique_passport_id"/>
+    <addUniqueConstraint tableName="employment" columnNames="id" constraintName="unique_employment_id"/>
+    <addUniqueConstraint tableName="credit" columnNames="credit_id" constraintName="unique_credit_id"/>
+    <addUniqueConstraint tableName="statement" columnNames="statement_id" constraintName="unique_statement_id"/>
+</changeSet>
+
+</databaseChangeLog>
