@@ -19,8 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static sergey_white.org.deal.enums.ApplicationStatus.PREAPPROVAL;
-import static sergey_white.org.deal.enums.ApplicationStatus.PREPARE_DOCUMENTS;
+import static sergey_white.org.deal.enums.ApplicationStatus.*;
 import static sergey_white.org.deal.enums.ChangeType.MANUAL;
 
 @Service
@@ -32,6 +31,7 @@ public class DealService {
     private final ClientRepository clientRepository;
     private final StatementRepository statementRepository;
     private final CreditRepository creditRepository;
+    private final DocumentService dealProducerService;
 
     public List<LoanOfferDto> getLoanOffers(LoanStatementRequestDto input) {
         log.info("Starting to get loan offers : {}", input);
@@ -60,8 +60,8 @@ public class DealService {
     public void selectOffer(LoanOfferDto input) {
         log.info("Selecting loan offer: {}", input);
         Statement statement = statementRepository.getReferenceById(input.getStatementId());
-        statement.setStatus(PREPARE_DOCUMENTS);
-        StatusHistory statusHistory = new StatusHistory(PREPARE_DOCUMENTS, LocalDateTime.now(), MANUAL);
+        statement.setStatus(APPROVED);
+        StatusHistory statusHistory = new StatusHistory(APPROVED, LocalDateTime.now(), MANUAL);
         List<StatusHistory> history = statement.getStatusHistory();
         history.add(statusHistory);
         statement.setAppliedOffer(input);
@@ -69,6 +69,7 @@ public class DealService {
         credit.setAmount(input.getTotalAmount());
         credit.setTerm(input.getTerm());
         statementRepository.save(statement);
+        dealProducerService.sendFinishRegMessage(statement.getStatementId());
         log.info("Loan offer selected");
     }
 
@@ -78,8 +79,8 @@ public class DealService {
             log.info("Calculating credit for input: {} and statementId: {}", input, statementId);
             Statement statement = statementRepository.getReferenceById(UUID.fromString(statementId));
             CreditDto creditDto = getCreditDtoFromFinishRegReqDto(input, statementId);
-            statement.setStatus(PREAPPROVAL);
-            StatusHistory statusHistory = new StatusHistory(PREAPPROVAL, LocalDateTime.now(), MANUAL);
+            statement.setStatus(CC_APPROVED);
+            StatusHistory statusHistory = new StatusHistory(CC_APPROVED, LocalDateTime.now(), MANUAL);
             List<StatusHistory> history = statement.getStatusHistory();
             history.add(statusHistory);
             Credit credit = mapper.fromCreditDtoToCredit(creditDto);
@@ -87,6 +88,7 @@ public class DealService {
             statement.setCredit(credit);
             creditRepository.save(credit);
             statementRepository.save(statement);
+            dealProducerService.sendPaperworkMessage(statement.getStatementId());
             log.info("Credit calculated and statement updated: {}", statement);
         }
     }

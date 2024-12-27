@@ -16,7 +16,6 @@ import sergey_white.org.deal.service.DealService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/deal")
 @RequiredArgsConstructor
 public class DealController {
     private final DealService service;
