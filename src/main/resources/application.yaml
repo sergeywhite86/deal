@@ -19,6 +19,12 @@ spring:
 
 server:
   port: 8082
-  servlet:
-    context-path: /deal
 
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /deal/v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /deal/swagger-ui.html

@@ -1,5 +1,7 @@
 package sergey_white.org.deal.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -33,13 +35,16 @@ public class Client {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "passport_id")
     @JdbcTypeCode(SqlTypes.JSON)
+    @JsonBackReference
     private Passport passport;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "employment_id")
     @JdbcTypeCode(SqlTypes.JSON)
+    @JsonBackReference
     private Employment employment;
     @Column(unique = true)
     private String accountNumber;
     @OneToOne(mappedBy = "client",cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonManagedReference
     private Statement statement;
 }

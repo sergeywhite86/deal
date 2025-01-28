@@ -1,5 +1,6 @@
 package sergey_white.org.deal.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -30,5 +31,6 @@ public class Credit {
     @Enumerated(EnumType.STRING)
     private CreditStatus creditStatus;
     @OneToOne(mappedBy = "credit")
+    @JsonBackReference
     private Statement statement;
 }

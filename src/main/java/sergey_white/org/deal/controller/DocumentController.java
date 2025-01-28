@@ -10,7 +10,7 @@ import sergey_white.org.deal.service.DocumentService;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/document")
+@RequestMapping("deal/document")
 @RequiredArgsConstructor
 public class DocumentController {
 

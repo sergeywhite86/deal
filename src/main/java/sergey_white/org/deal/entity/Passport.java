@@ -1,5 +1,6 @@
 package sergey_white.org.deal.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,5 +21,6 @@ public class Passport {
     private String issueBranch;
     private LocalDate issueDate;
     @OneToOne(mappedBy = "passport", cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonManagedReference
     private Client client;
 }

@@ -1,5 +1,7 @@
 package sergey_white.org.deal.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -29,8 +31,10 @@ public class Statement {
     private List<StatusHistory> statusHistory;
     @OneToOne
     @JoinColumn(name = "client_id")
+    @JsonBackReference
     private Client client;
     @OneToOne
     @JoinColumn(name = "credit_id")
+    @JsonManagedReference
     private Credit credit;
 }

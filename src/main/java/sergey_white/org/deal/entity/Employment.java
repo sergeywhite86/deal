@@ -1,5 +1,6 @@
 package sergey_white.org.deal.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import sergey_white.org.deal.enums.EmploymentPosition;
@@ -23,5 +24,6 @@ public class Employment {
     private Integer workExperienceTotal;
     private Integer workExperienceCurrent;
     @OneToOne(mappedBy = "employment", cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonManagedReference
     private Client client;
 }
