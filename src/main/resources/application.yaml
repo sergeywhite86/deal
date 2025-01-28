@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: deal
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dealDB
+    username: student
+    password: chocolatefrog
+  liquibase:
+    change-log: classpath:db/liquibase/changelog-master.yml
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+server:
+  port: 8082
+
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /deal/v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /deal/swagger-ui.html
